@@ -1,5 +1,5 @@
 export function ChecklistItem(props) {
-    const { item, itemIndex } = props
+    const { item, itemIndex, handleDeleteItem } = props
 
     return (
         <div className="card todo-item">
@@ -12,7 +12,7 @@ export function ChecklistItem(props) {
             <p>{item.input}</p>
             <div className="todo-buttons">
                 <button onClick={() => {
-                    // Delete Item
+                    handleDeleteItem(item)
                 }}>
                     <i class="fa-solid fa-trash"></i>
                 </button>

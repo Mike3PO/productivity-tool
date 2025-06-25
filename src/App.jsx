@@ -19,11 +19,16 @@ function App() {
     setItems(newChecklist)
   }
 
+  function handleDeleteItem(item) {
+    const newChecklist = items.filter(val => val.input != item.input)
+    setItems(newChecklist)
+  }
+
   return (
     <>
       <Header items={items} selectedTab={selectedTab}/>
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab}/>
-      <Checklist selectedTab={selectedTab} items={items}/>
+      <Checklist handleDeleteItem={handleDeleteItem} selectedTab={selectedTab} items={items}/>
       <ChecklistInput selectedTab = {selectedTab} handleAddItem = {handleAddItem} checklistInput = {checklistInput} setChecklistInput = {setChecklistInput} />
     </>
   )
