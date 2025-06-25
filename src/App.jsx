@@ -1,9 +1,15 @@
+import { Header } from "./components/Header"
+import { Tabs } from "./components/Tabs"
 
+import { useState } from 'react'
 function App() {
+
+  const [selectedTab, setSelectedTab] = useState('All')
 
   return (
     <>
-    <p>This is the beginning of my checklist app</p>
+      <Header/>
+      <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab}/>
     </>
   )
 }
