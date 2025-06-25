@@ -1,15 +1,30 @@
+import { Checklist } from "./components/Checklist"
+import { ChecklistInput } from "./components/ChecklistInput"
 import { Header } from "./components/Header"
 import { Tabs } from "./components/Tabs"
 
 import { useState } from 'react'
 function App() {
 
-  const [selectedTab, setSelectedTab] = useState('All')
+  const [items, setItems] = useState([
+    { input : 'Start building your checklist', category : 'Exercise', complete : 'False'}
+  ])
+
+  const [checklistInput, setChecklistInput] = useState('')
+
+  const [selectedTab, setSelectedTab] = useState('Exercise')
+
+  function handleAddItem(newItem, section) {
+    const newChecklist = [...items, { input: newItem, category : section, complete : false}]
+    setItems(newChecklist)
+  }
 
   return (
     <>
-      <Header/>
+      <Header items={items} selectedTab={selectedTab}/>
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab}/>
+      <Checklist selectedTab={selectedTab} items={items}/>
+      <ChecklistInput selectedTab = {selectedTab} handleAddItem = {handleAddItem} checklistInput = {checklistInput} setChecklistInput = {setChecklistInput} />
     </>
   )
 }
