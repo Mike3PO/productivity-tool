@@ -1,10 +1,11 @@
 export function ChecklistItem(props) {
-    const { item, itemIndex, handleDeleteItem } = props
+    const { item, itemIndex, handleCompleteItem, handleDeleteItem } = props
 
     return (
         <div className="card todo-item">
             <div className="todo-buttons"><button onClick={() => {
                 // Complete item
+                handleCompleteItem(itemIndex)
             }}>
                 <i class={"fa-regular fa-square" + (item.complete === true ? "-check" : "")}></i>
             </button>

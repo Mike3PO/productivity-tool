@@ -1,14 +1,14 @@
 export function Header(props) {
     const { items, selectedTab } = props
     const filterChecklist = selectedTab === 'Exercise' ?
-        items.filter(val => val.category == 'Exercise') : 
+        items.filter(val => val.category == 'Exercise' && val.complete == false) : 
         selectedTab === 'Meals' ?
-            items.filter(val => val.category == 'Meals') : 
+            items.filter(val => val.category == 'Meals' && val.complete == false) : 
             selectedTab === 'Productivity' ? 
-                items.filter(val => val.category == 'Productivity') : 
+                items.filter(val => val.category == 'Productivity' && val.complete == false) : 
                 selectedTab === 'Art' ? 
-                    items.filter(val => val.category == 'Art') :
-                    items.filter(val => val.category == 'Sleep')
+                    items.filter(val => val.category == 'Art' && val.complete == false) :
+                    items.filter(val => val.category == 'Sleep' && val.complete == false)
     const numItemsinChecklist = filterChecklist.length
     const isPlural = numItemsinChecklist != 1 ? 's' : ''
     return (

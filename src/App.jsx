@@ -7,7 +7,7 @@ import { useState } from 'react'
 function App() {
 
   const [items, setItems] = useState([
-    { input : 'Start building your checklist', category : 'Exercise', complete : 'False'}
+    { input : 'Start building your checklist', category : 'Exercise', complete : false}
   ])
 
   const [checklistInput, setChecklistInput] = useState('')
@@ -16,6 +16,14 @@ function App() {
 
   function handleAddItem(newItem, section) {
     const newChecklist = [...items, { input: newItem, category : section, complete : false}]
+    setItems(newChecklist)
+  }
+
+  function handleCompleteItem(index) {
+    let newChecklist = [...items]
+    let completedItem = items[index]
+    completedItem['complete'] = !completedItem['complete']
+    newChecklist[index] = completedItem
     setItems(newChecklist)
   }
 
@@ -28,7 +36,7 @@ function App() {
     <>
       <Header items={items} selectedTab={selectedTab}/>
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab}/>
-      <Checklist handleDeleteItem={handleDeleteItem} selectedTab={selectedTab} items={items}/>
+      <Checklist handleCompleteItem={handleCompleteItem} handleDeleteItem={handleDeleteItem} selectedTab={selectedTab} items={items}/>
       <ChecklistInput selectedTab = {selectedTab} handleAddItem = {handleAddItem} checklistInput = {checklistInput} setChecklistInput = {setChecklistInput} />
     </>
   )
