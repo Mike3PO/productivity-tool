@@ -15,8 +15,6 @@ function App() {
 
   const [selectedTab, setSelectedTab] = useState('Exercise')
 
-  const [length, setLength] = useState(0)
-
   function handleAddItem(newItem, section) {
     const newChecklist = [...items, { input: newItem, category : section, complete : false}]
     setItems(newChecklist)
@@ -58,9 +56,9 @@ function App() {
 
   return (
     <>
-      <Header length={length} setLength={setLength} items={items} selectedTab={selectedTab}/>
+      <Header items={items} selectedTab={selectedTab}/>
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab}/>
-      <Checklist length={length} setLength={setLength} handleEditItem={handleEditItem} handleCompleteItem={handleCompleteItem} handleDeleteItem={handleDeleteItem} selectedTab={selectedTab} setSelectedTab={setSelectedTab} items={items}/>
+      <Checklist handleEditItem={handleEditItem} handleCompleteItem={handleCompleteItem} handleDeleteItem={handleDeleteItem} selectedTab={selectedTab} items={items}/>
       <ChecklistInput selectedTab = {selectedTab} handleAddItem = {handleAddItem} checklistInput = {checklistInput} setChecklistInput = {setChecklistInput} />
     </>
   )

@@ -1,18 +1,7 @@
 import { useEffect } from 'react'
 
 export function ChecklistItem(props) {
-    const { prevDate, date, item, itemIndex, handleCompleteItem, handleEditItem, handleDeleteItem } = props
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            if (!date || !prevDate) { return }
-            if (date.getMinutes() != prevDate.getMinutes()) {
-                item.complete = false
-            }
-        }, 1000)
-
-        return () => clearInterval(interval)
-    }, [])
+    const { item, itemIndex, handleCompleteItem, handleEditItem, handleDeleteItem } = props
 
     return (
         <div className="card todo-item">
