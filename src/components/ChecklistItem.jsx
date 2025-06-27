@@ -6,7 +6,7 @@ export function ChecklistItem(props) {
             <div className="todo-buttons"><button onClick={() => {
                 // Complete item
             }}>
-                <i class="fa-regular fa-square"></i>
+                <i class={"fa-regular fa-square" + (item.complete === true ? "-check" : "")}></i>
             </button>
             </div>
             <p>{item.input}</p>
