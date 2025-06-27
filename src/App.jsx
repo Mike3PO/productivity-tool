@@ -3,7 +3,8 @@ import { ChecklistInput } from "./components/ChecklistInput"
 import { Header } from "./components/Header"
 import { Tabs } from "./components/Tabs"
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
 function App() {
 
   const [items, setItems] = useState([
@@ -14,9 +15,12 @@ function App() {
 
   const [selectedTab, setSelectedTab] = useState('Exercise')
 
+  const [length, setLength] = useState(0)
+
   function handleAddItem(newItem, section) {
     const newChecklist = [...items, { input: newItem, category : section, complete : false}]
     setItems(newChecklist)
+    handleSaveData(newChecklist)
   }
 
   function handleCompleteItem(index) {
@@ -25,18 +29,38 @@ function App() {
     completedItem['complete'] = !completedItem['complete']
     newChecklist[index] = completedItem
     setItems(newChecklist)
+    handleSaveData(newChecklist)
+  }
+
+  function handleEditItem(index) {
+    const inputValue = items[index].input
+    setChecklistInput(inputValue)
+    handleDeleteItem(items[index])
   }
 
   function handleDeleteItem(item) {
     const newChecklist = items.filter(val => val.input != item.input)
     setItems(newChecklist)
+    handleSaveData(newChecklist)
   }
+
+  function handleSaveData(currItems) {
+    if (!localStorage) { return }
+    localStorage.setItem('productivity-tool', JSON.stringify({ items: currItems }))
+  }
+
+  useEffect(() => {
+    if (!localStorage || !localStorage.getItem('productivity-tool'))
+      { return }
+    let db = JSON.parse(localStorage.getItem('productivity-tool'))
+    setItems(db.items)
+  }, [])
 
   return (
     <>
-      <Header items={items} selectedTab={selectedTab}/>
+      <Header length={length} setLength={setLength} items={items} selectedTab={selectedTab}/>
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab}/>
-      <Checklist handleCompleteItem={handleCompleteItem} handleDeleteItem={handleDeleteItem} selectedTab={selectedTab} items={items}/>
+      <Checklist length={length} setLength={setLength} handleEditItem={handleEditItem} handleCompleteItem={handleCompleteItem} handleDeleteItem={handleDeleteItem} selectedTab={selectedTab} setSelectedTab={setSelectedTab} items={items}/>
       <ChecklistInput selectedTab = {selectedTab} handleAddItem = {handleAddItem} checklistInput = {checklistInput} setChecklistInput = {setChecklistInput} />
     </>
   )

@@ -1,5 +1,18 @@
+import { useEffect } from 'react'
+
 export function ChecklistItem(props) {
-    const { item, itemIndex, handleCompleteItem, handleDeleteItem } = props
+    const { prevDate, date, item, itemIndex, handleCompleteItem, handleEditItem, handleDeleteItem } = props
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (!date || !prevDate) { return }
+            if (date.getMinutes() != prevDate.getMinutes()) {
+                item.complete = false
+            }
+        }, 1000)
+
+        return () => clearInterval(interval)
+    }, [])
 
     return (
         <div className="card todo-item">
@@ -7,15 +20,20 @@ export function ChecklistItem(props) {
                 // Complete item
                 handleCompleteItem(itemIndex)
             }}>
-                <i class={"fa-regular fa-square" + (item.complete === true ? "-check" : "")}></i>
+                <i className={"fa-regular fa-square" + (item.complete === true ? "-check" : "")}></i>
             </button>
             </div>
             <p>{item.input}</p>
             <div className="todo-buttons">
                 <button onClick={() => {
+                    handleEditItem(itemIndex)
+                }}>
+                    <h6>Edit</h6>
+                </button>
+                <button onClick={() => {
                     handleDeleteItem(item)
                 }}>
-                    <i class="fa-solid fa-trash"></i>
+                    <i className="fa-solid fa-trash"></i>
                 </button>
             </div>
         </div>

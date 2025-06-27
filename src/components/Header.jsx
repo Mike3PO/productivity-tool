@@ -1,5 +1,5 @@
 export function Header(props) {
-    const { items, selectedTab } = props
+    const { items, selectedTab, length, setLength } = props
     const filterChecklist = selectedTab === 'Exercise' ?
         items.filter(val => val.category == 'Exercise' && val.complete == false) : 
         selectedTab === 'Meals' ?
@@ -9,11 +9,11 @@ export function Header(props) {
                 selectedTab === 'Art' ? 
                     items.filter(val => val.category == 'Art' && val.complete == false) :
                     items.filter(val => val.category == 'Sleep' && val.complete == false)
-    const numItemsinChecklist = filterChecklist.length
-    const isPlural = numItemsinChecklist != 1 ? 's' : ''
+    setLength(filterChecklist.length)
+    const isPlural = length != 1 ? 's' : ''
     return (
         <header>
-            <h1 className="text-gradient">You have {numItemsinChecklist} {selectedTab} item{isPlural} remaining.</h1>
+            <h1 className="text-gradient">You have {length} {selectedTab} item{isPlural} remaining.</h1>
         </header>
     )
 }
