@@ -30,6 +30,15 @@ function App() {
     handleSaveData(newChecklist)
   }
 
+  function handleResetCompleteItem(index) {
+    let newChecklist = [...items]
+    let completedItem = items[index]
+    completedItem['complete'] = false
+    newChecklist[index] = completedItem
+    setItems(newChecklist)
+    handleSaveData(newChecklist)
+  }
+
   function handleEditItem(index) {
     const inputValue = items[index].input
     setChecklistInput(inputValue)
@@ -58,7 +67,7 @@ function App() {
     <>
       <Header items={items} selectedTab={selectedTab}/>
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab}/>
-      <Checklist handleEditItem={handleEditItem} handleCompleteItem={handleCompleteItem} handleDeleteItem={handleDeleteItem} selectedTab={selectedTab} items={items}/>
+      <Checklist handleResetCompleteItem={handleResetCompleteItem} handleEditItem={handleEditItem} handleCompleteItem={handleCompleteItem} handleDeleteItem={handleDeleteItem} selectedTab={selectedTab} items={items}/>
       <ChecklistInput selectedTab = {selectedTab} handleAddItem = {handleAddItem} checklistInput = {checklistInput} setChecklistInput = {setChecklistInput} />
     </>
   )
