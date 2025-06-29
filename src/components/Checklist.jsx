@@ -1,7 +1,26 @@
 import { ChecklistItem } from "./ChecklistItem";
+import { useState, useEffect } from "react"
 
 export function Checklist(props) {
-    const { items, selectedTab } = props
+    const { items, handleResetCompleteItem, selectedTab } = props
+
+    const [currentDate, setCurrentDate] = useState(() => new Date())
+    const [ prevDate, setPrevDate ] = useState(() => new Date())
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setPrevDate(currentDate)
+            setCurrentDate(new Date())
+            
+            if (prevDate.getDate() != currentDate.getDate()) {
+                handleResetCompleteItem()
+            }
+        }, 60 * 60 * 1000)
+
+        return (() => {
+            clearInterval(interval)
+        })
+    }, [currentDate, prevDate])
 
     // 'Exercise', 'Meals', 'Productivity', 'Art', 'Sleep'
     const filterChecklist = selectedTab === 'Exercise' ?

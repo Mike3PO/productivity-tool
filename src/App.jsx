@@ -30,11 +30,13 @@ function App() {
     handleSaveData(newChecklist)
   }
 
-  function handleResetCompleteItem(index) {
+  function handleResetCompleteItem() {
     let newChecklist = [...items]
-    let completedItem = items[index]
-    completedItem['complete'] = false
-    newChecklist[index] = completedItem
+    for (let i = 0; i < items.length; i++) {
+      let completeItem = items[i]
+      completeItem['complete'] = false
+      newChecklist[i] = completeItem
+    }
     setItems(newChecklist)
     handleSaveData(newChecklist)
   }
