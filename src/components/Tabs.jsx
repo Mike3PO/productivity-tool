@@ -1,6 +1,6 @@
 export function Tabs(props) {
     const { selectedTab, setSelectedTab } = props
-    const tabs = ['Exercise', 'Meals', 'Work', 'Art', 'Sleep', 'Household']
+    const tabs = ['Exercise', 'Meals', 'Productivity', 'Art', 'Sleep']
     return (
         <nav>
 
