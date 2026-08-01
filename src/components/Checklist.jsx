@@ -22,7 +22,7 @@ export function Checklist(props) {
         })
     }, [currentDate, prevDate])
 
-    // 'Exercise', 'Meals', 'Productivity', 'Art', 'Sleep'
+    // 'Exercise', 'Meals', 'Productivity', 'Art', 'Sleep', 'Household'
     const filterChecklist = selectedTab === 'Exercise' ?
         items.filter(val => val.category == 'Exercise') : 
         selectedTab === 'Meals' ?
@@ -31,7 +31,10 @@ export function Checklist(props) {
                 items.filter(val => val.category == 'Productivity') : 
                 selectedTab === 'Art' ? 
                     items.filter(val => val.category == 'Art') :
-                    items.filter(val => val.category == 'Sleep')
+                    selectedTab === 'Sleep' ?
+                        items.filter(val => val.category == 'Sleep') :
+                        items.filter(val => val.category == 'Household')
+
 
     return (
         <>

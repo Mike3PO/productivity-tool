@@ -8,7 +8,9 @@ export function Header(props) {
                 items.filter(val => val.category == 'Productivity' && val.complete == false) : 
                 selectedTab === 'Art' ? 
                     items.filter(val => val.category == 'Art' && val.complete == false) :
-                    items.filter(val => val.category == 'Sleep' && val.complete == false)
+                    selectedTab === 'Sleep' ?
+                        items.filter(val => val.category == 'Sleep' && val.complete == false) :
+                        items.filter(val => val.category == 'Household' && val.complete == false)
     const numItemsInCategory = filterChecklist.length
     const isPlural = numItemsInCategory != 1 ? 's' : ''
     return (
